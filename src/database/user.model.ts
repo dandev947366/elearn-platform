@@ -14,3 +14,34 @@ export interface IUser extends Document {
     role: EUserRole;
     createdAt: Date;
   }
+  
+  const userSchema = new Schema<IUser>({
+    id:{type:String},
+    name:{type:String},
+    username:{type:String},
+    email_address:{type:String},
+    avatar:{type:String},
+    courses:[
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Course",
+        },
+    ],
+    createdAt:{
+        type: Date,
+        default: Date.now,
+    },
+    role:{
+        type:String,
+        enum: Object.values(EUserRole),
+        default: EUserRole.USER,
+    },
+    status: {
+        type: String,
+        enum: Object.values(EUserStatus),
+        default: EUserStatus.ACTIVE,
+    }
+  })
+  
+  const User = models.User || model("User", userSchema)
+  export default User
