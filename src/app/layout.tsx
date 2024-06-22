@@ -22,7 +22,7 @@ export default function RootLayout({
         <aside className="sidebar bg-gray-800 text-white p-4">
           <Sidebar />
         </aside>
-        <main className="p-4">
+        <main className="p-5">
           {children}
         </main>
       </div>
