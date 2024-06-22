@@ -1,7 +1,29 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Star, Eye, Book } from 'lucide-react';
+import { Star, Eye, Book, Clock } from "lucide-react";
+const courseInfo = [
+  {
+   
+    title:  "3000",
+    icon: (className?:string)=> <Eye className={className} />
+  },
+  {
+   
+    title: "5.0",
+    icon: (className?:string)=> <Star className={className}/>
+  },
+  {
+    
+    title: "Front End",
+    icon: (className?:string)=> <Book className={className}/>
+  },
+  {
+  
+    title: "30hrs",
+    icon: (className?:string)=> <Clock className={className} />
+  }
+];
 const CourseItem = () => {
   return (
     <div className="border border-slate-400 p-5 rounded-lg">
@@ -16,28 +38,36 @@ const CourseItem = () => {
           priority
         />
       </Link>
-      <div className="py-4">
-        <h3 className="font-bold text-lg mb-7">
-            Course 1 - Elearn Platform
-        </h3>
+      <div className="pt-4">
+        <h3 className="font-bold text-lg mb-7">Course 1 - Elearn Platform</h3>
         <div className="flex items-center gap-5 mb-5">
-            <div className="flex items-center gap-2">
-                1000 <Eye className="size-5"/>
+          {courseInfo.map((item, index) => (
+            <div className="flex items-center gap-1" key={index}>
+              {item.title} {item.icon("size-4")}
             </div>
-            <div className="flex items-center gap-2">
-                5.0 <Star className="size-5"/>
-            </div>
-            <div className="flex items-center gap-2">
-            Front End <Book className="size-5"/>
-            </div>
-            
+          ))}
+
+          
         </div>
-        <p className="flex items-center justify-between mb-5">Elearning course description</p>
+        <p className="flex items-center justify-between mb-5">
+          Elearning course description
+        </p>
         <div className="flex items-center justify-between">
-            <span className="text-sm text-red-200 px-3 py-1 rounded-full bg-opacity-10 bg-red-100">30 hours</span>
-            <span className=" text-gray-300 px-3 py-1 rounded-full bg-opacity-10 bg-red-100">Language: <span className=" text-blue-300 font-bold px-3 py-1 ">English</span></span>
+          <span className="text-sm text-red-200 px-3 py-1 rounded-full bg-opacity-10 bg-red-300">
+            {" "}
+            ReactJS
+          </span>
+          <span className=" text-gray-300 px-3 py-1 rounded-full bg-opacity-10 bg-red-100">
+            Language:{" "}
+            <span className=" text-blue-300 font-bold px-3 py-1 ">English</span>
+          </span>
         </div>
-        <Link href="#" className="flex items-center justify-center mt-7 text-white font-semibold width-full p-2 rounded bg-blue-500">See details</Link>
+        <Link
+          href="#"
+          className="flex items-center justify-center mt-7 text-white font-semibold width-full p-2 rounded bg-blue-500"
+        >
+          See details
+        </Link>
       </div>
     </div>
   );
