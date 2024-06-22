@@ -23,7 +23,7 @@ export default function RootLayout({
           <Sidebar />
         </aside>
         <main className="p-4">
-          <p>{children}</p>
+          {children}
         </main>
       </div>
       </body>
