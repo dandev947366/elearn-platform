@@ -1,6 +1,6 @@
 import React, { ComponentProps } from "react";
 
-const IconPlay = (props: ComponentProps<"svg">) => {
+const IconPlay: React.FC<ComponentProps<"svg">> = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
