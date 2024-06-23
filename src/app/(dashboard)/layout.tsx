@@ -1,17 +1,12 @@
-import React, { ReactNode } from 'react';
-import Sidebar from '@/components/layout/Sidebar';
+import Sidebar from "@/components/layout/Sidebar";
+import React from "react";
 
-type LayoutProps = {
-  children: ReactNode; 
-};
-
-const layout: React.FC<LayoutProps> = ({ children }) => {
+const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    
-      <main className="p-4">
-        {children}
-      </main>
-  
+    // <div className="wrapper grid grid-cols-[300px,minmax(0,1fr)] h-screen">
+      <div className="wrapper grid grid-cols-1">
+      <main className="p-5">{children}</main>
+    </div>
   );
 };
 
