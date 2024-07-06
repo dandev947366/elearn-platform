@@ -15,6 +15,9 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import {useState} from 'react'
+import slugify from 'slugify'
+
 
 const formSchema = z.object({
   title: z.string().min(10, {
@@ -31,15 +34,33 @@ function CourseAddNew() {
             slug: "",
         },
       })
-     
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
-    }
+      const [isSubmitting, setIsSubmitting] = useState(false)
+      function onSubmit(values: z.infer<typeof formSchema>) {
+        setIsSubmitting(true);
+        try {
+          const data = {
+            title: values.title,
+            slug:
+              values.slug ||
+              slugify(values.title, {
+                lower: true,
+                locale: "vi",
+              }),
+          };
+          console.log(data);
+          // await createCourse(values);
+        } catch (error) {
+        } finally {
+          setIsSubmitting(false);
+        }
+      }
+    
+   
   return (
- 
+  <>
     <Form {...form}>
     <Heading>Create a new course</Heading>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} autoComplete="off">
       <div className="grid grid-cols-2 gap-8 mt-10 mb-8">
         <FormField
           control={form.control}
@@ -69,9 +90,10 @@ function CourseAddNew() {
           )}
         />
         </div>
-        <Button type="submit" className="flex items-center justify-center mt-7 text-white font-semibold width-full p-2 rounded bg-blue-400 shadow-slate-900 border border-blue-300 hover:bg-blue-500">Create course</Button>
+        <Button isLoading={isSubmitting} type="submit" className="flex items-center justify-center mt-7 text-white font-semibold width-full p-2 rounded bg-blue-500 shadow-slate-900 border border-blue-300 hover:bg-blue-400 w-[120px]" disabled={isSubmitting}>Create course</Button>
       </form>
     </Form>
+    </>
   )
 }
 
