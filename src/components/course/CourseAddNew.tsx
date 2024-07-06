@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
+import Heading from '@/components/typography/Heading'
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -17,45 +17,59 @@ import {
 import { Input } from "@/components/ui/input"
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  title: z.string().min(10, {
+    message: "Title must be at least 10 characters.",
   }),
+  slug: z.string().optional(),
 })
 
 function CourseAddNew() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-          username: "",
+            title: "",
+            slug: "",
         },
       })
      
-      // 2. Define a submit handler.
-      function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
+    function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values)
     }
   return (
+ 
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <Heading>Create a new course</Heading>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <div className="grid grid-cols-2 gap-8 mt-10 mb-8">
         <FormField
           control={form.control}
-          name="username"
+          name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Course name *</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="course name" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
+              <FormMessage  />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        
+        <FormField
+          control={form.control}
+          name="slug"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Link of course</FormLabel>
+              <FormControl>
+                <Input placeholder="react-course" {...field} />
+              </FormControl>
+              <FormMessage  />
+            </FormItem>
+          )}
+        />
+        </div>
+        <Button type="submit" className="flex items-center justify-center mt-7 text-white font-semibold width-full p-2 rounded bg-blue-400 shadow-slate-900 border border-blue-300 hover:bg-blue-500">Create course</Button>
       </form>
     </Form>
   )
